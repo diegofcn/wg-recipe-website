@@ -9,23 +9,46 @@ function RecipeDetail() {
   if (!recipe) return <p>No recipe found</p>;
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-center mb-12 mt-16">{recipe.title}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="md:col-span-1 flex flex-col items-center">
-          <img src={recipe.imageUrl} alt={recipe.title} className="mb-4 w-full"/>
-          <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-          <ul className="list-disc">
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index} className="ml-4">{ingredient}</li>
-            ))}
-          </ul>
+    <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className='mt-16'>
+        <h1 className="text-8xl font-fancy text-emerald-200 tracking-widest text-left mb-4">{recipe.title}</h1>
+        <h2 className="text-xl font-semibold mb-2 mt-16 uppercase">Ingredients</h2>
+        <div className="mb-4">
+          {recipe.ingredients.map((ingredient, index) => (
+            <div key={index} className="flex justify-start items-center space-x-4">
+              <span className="font-semibold w-20">{ingredient.amount}</span>
+              <span className="flex-1 text-left">{ingredient.name}</span>
+            </div>
+          ))}
         </div>
-        <div className="md:col-span-2">
-          <p className="text-md mb-4"><strong>Duration:</strong> {recipe.duration}</p>
-          <h2 className="text-xl font-semibold mb-2">Instructions</h2>
-          <p>{recipe.instructions}</p>
+        <hr className='mb-8 mt-8'/>
+        <h2 className="text-xl font-semibold uppercase mb-2">Macros</h2>
+        <div className="mb-4">
+          <div className="flex justify-start items-center space-x-4">
+            <span className="font-semibold w-32">Calories</span>
+            <span className="flex-1 text-left">{recipe.macros.calories}</span>
+          </div>
+          <div className="flex justify-start items-center space-x-4">
+            <span className="font-semibold w-32">Carbs</span>
+            <span className="flex-1 text-left">{recipe.macros.carbs}</span>
+          </div>
+          <div className="flex justify-start items-center space-x-4">
+            <span className="font-semibold w-32">Protein</span>
+            <span className="flex-1 text-left">{recipe.macros.protein}</span>
+          </div>
+          <div className="flex justify-start items-center space-x-4">
+            <span className="font-semibold w-32">Fat</span>
+            <span className="flex-1 text-left">{recipe.macros.fat}</span>
+          </div>
         </div>
+      </div>
+      <div className='mt-16'>
+        <div className="text-right mt-24 flex justify-center">
+          <p className="text-md font-semibold mb-1">Duration: {recipe.duration}</p>
+        </div>
+        <img src={recipe.imageUrl} alt={recipe.title} className="mb-4 w-full mt-24 shadow-lg rounded-lg"/>
+        <h2 className="text-xl font-semibold mb-2">Instructions</h2>
+        <p>{recipe.instructions}</p>
       </div>
     </div>
   );
