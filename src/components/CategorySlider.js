@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const categories = ['Breakfast', 'Dinner', 'Dessert', 'Snacks', 'Drinks'];
+const categories = ['Breakfast', 'Dinner', 'Dessert', 'Snacks', 'Dips'];
 
 function CategorySlider() {
   return (

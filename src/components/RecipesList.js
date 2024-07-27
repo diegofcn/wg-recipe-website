@@ -28,7 +28,7 @@ function RecipesList() {
   return (
     <div className='flex justify-center'>
       <div className="p-16 w-full xl:w-2/3">
-        <h2 className="text-2xl lg:text-6xl font-bold font-cormorant text-center capitalize mb-16 mt-24">{categoryName} Recipes</h2>
+        <h2 className="text-2xl lg:text-6xl font-bold font-cormorant text-center capitalize mb-16 mt-12">{categoryName} Recipes</h2>
         {recipes.length === 0 ? (
           <p className="text-center text-xl text-gray-600 mt-16">No recipes found in this category yet.</p>
         ) : (

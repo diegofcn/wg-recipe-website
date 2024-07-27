@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 function Navbar() {
   const [transparent, setTransparent] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const changeBackground = () => {
@@ -21,16 +27,24 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed w-full mt-8 z-10 transition-opacity duration-300 ease-in-out">
-      <div className="container mx-auto flex flex-col items-center p-4">
-        <div className="flex justify-center space-x-20">
-        <Link to="/" className="hover:text-primary text-gray-700 uppercase">Home</Link>
-          <Link to="/category/breakfast" className="hover:text-primary text-gray-700 uppercase">breakfast</Link>
-          <Link to="/category/dinner" className="hover:text-primary text-gray-700 uppercase">dinner</Link>
-          <Link to="/category/dessert" className="hover:text-primary text-gray-700 uppercase">dessert</Link>
-          <Link to="/category/snacks" className="hover:text-primary text-gray-700 uppercase">snacks</Link>
-          <Link to="/category/drinks" className="hover:text-primary text-gray-700 uppercase">drinks</Link>
-          <Link to="/create" className="hover:text-primary text-gray-700 uppercase">create</Link>
+    <nav className="sticky w-full mt-8 z-10 transition-opacity duration-300 ease-in-out bg-white">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between p-4">
+        <div className="flex justify-between w-full lg:w-auto">
+          <Link to="/" className="text-2xl font-cormorant font-semibold text-gray-700 uppercase">
+            Kitchen Chaos
+          </Link>
+          <button className="text-gray-700 lg:hidden" onClick={toggleMenu}>
+            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
+        </div>
+        <div className={`flex-col lg:flex-row lg:flex lg:items-center ${isOpen ? 'flex' : 'hidden'} w-full lg:w-auto mt-4 lg:mt-0 space-y-4 lg:space-y-0 lg:space-x-20`}>
+          <Link to="/" className="hover:text-primary text-gray-700 uppercase text-center lg:text-left">Home</Link>
+          <Link to="/category/breakfast" className="hover:text-primary text-gray-700 uppercase text-center lg:text-left">Breakfast</Link>
+          <Link to="/category/dinner" className="hover:text-primary text-gray-700 uppercase text-center lg:text-left">Dinner</Link>
+          <Link to="/category/dessert" className="hover:text-primary text-gray-700 uppercase text-center lg:text-left">Dessert</Link>
+          <Link to="/category/snacks" className="hover:text-primary text-gray-700 uppercase text-center lg:text-left">Snacks</Link>
+          <Link to="/category/dips" className="hover:text-primary text-gray-700 uppercase text-center lg:text-left">Dips</Link>
+          <Link to="/create" className="hover:text-primary text-gray-700 uppercase text-center lg:text-left">Create</Link>
         </div>
       </div>
     </nav>

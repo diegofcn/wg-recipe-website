@@ -43,9 +43,9 @@ function RecipeDetail() {
     return (
       <div className="flex justify-center">
         <div className="hidden xl:block xl:w-1/5"></div> {/* Left empty space */}
-        <div className="w-full xl:w-3/5 p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
+        <div className="w-full xl:w-3/5 p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
           <div className='mt-16 lg:col-span-1'>
-            <h1 className="text-8xl font-fancy text-blue-300 tracking-widest text-left mb-4">{recipe.title}</h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-fancy text-blue-300 tracking-widest text-left mb-4">{recipe.title}</h1>
             <button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
               Delete Recipe
             </button>
@@ -86,8 +86,8 @@ function RecipeDetail() {
           </div>
           </div>
           <div className='mt-16 lg:col-span-2'>
-          <div className="flex justify-center mt-24">
-            <p className="text-xl font-semibold text-amber-600 tracking-widest mb-1 flex items-center">
+          <div className="flex justify-end xl:justify-center mt-12 xl:mt-24">
+            <p className="text-md xl:text-xl font-semibold text-amber-600 tracking-widest mb-1 flex items-center">
               <FaRegClock className="mr-2" /> Duration: {recipe.duration}
             </p>
           </div>

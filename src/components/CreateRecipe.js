@@ -132,7 +132,7 @@ if (loading) return <p>Loading...</p>;
                   <option value="breakfast">Breakfast</option>
                   <option value="dinner">Dinner</option>
                   <option value="dessert">Dessert</option>
-                  <option value="drinks">Drinks</option>
+                  <option value="dips">Dips</option>
                   <option value="snacks">Snacks</option>
               </select>
             </div>

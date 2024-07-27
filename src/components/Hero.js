@@ -17,7 +17,7 @@ function Hero() {
           <Link to="/category/dinner" className="hover:text-primary text-gray-700 uppercase">dinner</Link>
           <Link to="/category/dessert" className="hover:text-primary text-gray-700 uppercase">dessert</Link>
           <Link to="/category/snacks" className="hover:text-primary text-gray-700 uppercase">snacks</Link>
-          <Link to="/category/drinks" className="hover:text-primary text-gray-700 uppercase">drinks</Link>
+          <Link to="/category/dips" className="hover:text-primary text-gray-700 uppercase">dips</Link>
           <Link to="/create" className="hover:text-primary text-gray-700 uppercase">create</Link>
         </div>
       </div>
