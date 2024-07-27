@@ -4,7 +4,6 @@ import axios from 'axios';
 
 function RecipesList() {
   const { categoryName } = useParams();
-  console.log(categoryName)
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,23 +24,26 @@ function RecipesList() {
   }, [categoryName]);
 
   if (loading) return <p>Loading...</p>;
-  if (recipes.length === 0) return <p>No recipes found in this category</p>;
 
   return (
     <div className='flex justify-center'>
-      <div className="p-16 md:w-2/3">
+      <div className="p-16 w-full xl:w-2/3">
         <h2 className="text-2xl lg:text-6xl font-bold font-cormorant text-center capitalize mb-16 mt-24">{categoryName} Recipes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {recipes.map(recipe => (
-            <Link to={`/recipe/${recipe._id}`} key={recipe._id} className="flex flex-row bg-white shadow-lg rounded-lg overflow-hidden hover:bg-gray-200 transition-colors duration-200 ease-in-out">
-              <img src={recipe.imageUrl} alt={recipe.title} className="w-1/3 object-cover"/>
-              <div className="p-16 flex flex-col justify-between">
-                <h3 className="text-lg font-semibold">{recipe.title}</h3>
-                <p className="text-gray-600">{recipe.duration}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {recipes.length === 0 ? (
+          <p className="text-center text-xl text-gray-600 mt-16">No recipes found in this category yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            {recipes.map(recipe => (
+              <Link to={`/recipe/${recipe._id}`} key={recipe._id} className="flex flex-row bg-white shadow-lg rounded-lg overflow-hidden hover:bg-gray-200 transition-colors duration-200 ease-in-out">
+                <img src={recipe.imageUrl} alt={recipe.title} className="w-1/3 object-cover"/>
+                <div className="p-16 flex flex-col justify-between">
+                  <h3 className="text-lg font-semibold">{recipe.title}</h3>
+                  <p className="text-gray-600">{recipe.duration}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

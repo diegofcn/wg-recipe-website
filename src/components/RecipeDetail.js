@@ -42,8 +42,8 @@ function RecipeDetail() {
 
     return (
       <div className="flex justify-center">
-        <div className="w-1/5"></div> {/* Left empty space */}
-        <div className="w-3/5 p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
+        <div className="hidden xl:block xl:w-1/5"></div> {/* Left empty space */}
+        <div className="w-full xl:w-3/5 p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
           <div className='mt-16 lg:col-span-1'>
             <h1 className="text-8xl font-fancy text-blue-300 tracking-widest text-left mb-4">{recipe.title}</h1>
             <button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
@@ -95,7 +95,7 @@ function RecipeDetail() {
               <img 
                 src={recipe.imageUrl} 
                 alt={recipe.title} 
-                className="mb-4 w-full mt-24 shadow-lg rounded-lg"
+                className="mb-4 w-full max-w-md mt-24 shadow-lg rounded-lg"
               />
             </div>
             <h2 className="text-xl font-semibold mb-2 mt-8 uppercase tracking-widest">Instructions</h2>
@@ -114,7 +114,7 @@ function RecipeDetail() {
             </div>
           </div>
         </div>
-        <div className="w-1/5"></div> {/* Right empty space */}
+        <div className="hidden xl:block xl:w-1/5"></div> {/* Right empty space */}
       </div>
     );
 }
