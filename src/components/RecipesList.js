@@ -37,7 +37,7 @@ function RecipesList() {
               <Link to={`/recipe/${recipe._id}`} key={recipe._id} className="flex flex-row bg-white shadow-lg rounded-lg overflow-hidden hover:bg-gray-200 transition-colors duration-200 ease-in-out">
                 <img src={recipe.imageUrl} alt={recipe.title} className="w-1/3 object-cover"/>
                 <div className="p-16 flex flex-col justify-between">
-                  <h3 className="text-lg font-semibold">{recipe.title}</h3>
+                  <h3 className="text-lg capitalize font-semibold">{recipe.title}</h3>
                   <p className="text-gray-600">{recipe.duration}</p>
                 </div>
               </Link>

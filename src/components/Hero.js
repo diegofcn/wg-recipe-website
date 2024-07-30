@@ -7,12 +7,12 @@ function Hero() {
   return (
     <div className="relative bg-white min-h-screen flex flex-col items-center overflow-hidden">
       <div className="relative z-10 text-center p-8">
-        <img src={logo} alt="Recipe World Logo" className="w-24 h-24 mx-auto mb-4" />
-        <h1 className="text-8xl font-bold font-cormorant uppercase text-gray-800">Kitchen Chaos</h1>
-        <span className="block mt-2 text-4xl text-primary font-handwritten">flavorful & easy</span>
+        <img src={logo} alt="Recipe World Logo" className="w-16 sm:w-24 h-16 sm:h-24 mx-auto mb-4" />
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-cormorant uppercase text-gray-800">Kitchen Chaos</h1>
+        <span className="block mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl text-primary font-handwritten">flavorful & easy</span>
       </div>
-      <div className="mt-24 text-xl">
-        <div className="mt-8 flex justify-center space-x-20">
+      <div className="mt-8 text-lg sm:text-xl lg:text-2xl">
+        <div className="mt-8 flex flex-wrap justify-center space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-20">
           <Link to="/category/breakfast" className="hover:text-primary text-gray-700 uppercase">breakfast</Link>
           <Link to="/category/dinner" className="hover:text-primary text-gray-700 uppercase">dinner</Link>
           <Link to="/category/dessert" className="hover:text-primary text-gray-700 uppercase">dessert</Link>
