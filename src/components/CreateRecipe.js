@@ -90,16 +90,31 @@ const removeInstruction = index => {
     e.preventDefault();
     const method = recipeId ? 'patch' : 'post';
     const url = recipeId ? `http://localhost:5000/recipes/${recipeId}` : 'http://localhost:5000/recipes';
-
+  
     try {
-        const response = await axios[method](url, recipe);
-        alert(`Recipe ${recipeId ? 'updated' : 'created'} successfully!`);
-        navigate(`/recipe/${response.data._id}`);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You must be logged in to create or update a recipe');
+        return;
+      }
+  
+      const response = await axios({
+        method: method,
+        url: url,
+        data: recipe,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      alert(`Recipe ${recipeId ? 'updated' : 'created'} successfully!`);
+      navigate(`/recipe/${response.data._id}`);
     } catch (error) {
-        alert(`Failed to ${recipeId ? 'update' : 'create'} recipe`);
-        console.error(error);
+      alert(`Failed to ${recipeId ? 'update' : 'create'} recipe`);
+      console.error(error);
     }
-};
+  };
+  
 
 if (loading) return <p>Loading...</p>;
 

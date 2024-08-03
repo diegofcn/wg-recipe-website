@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { FaRegClock } from "react-icons/fa";
+import { AuthContext } from '../AuthContext';
 
 function RecipeDetail() {
     const { recipeId } = useParams();
     const navigate = useNavigate();
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { user, addFavorite, removeFavorite  } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchRecipe = async () => {
@@ -25,31 +27,67 @@ function RecipeDetail() {
     }, [recipeId]);
 
     const handleDelete = async () => {
-        if (window.confirm("Are you sure you want to delete this recipe?")) {
-            try {
-                await axios.delete(`http://localhost:5000/recipes/${recipeId}`);
-                navigate('/');  // Redirect to home or another appropriate page after deletion
-                alert("Recipe deleted successfully");
-            } catch (error) {
-                console.error("Failed to delete recipe:", error);
-                alert("Failed to delete recipe");
+      if (window.confirm("Are you sure you want to delete this recipe?")) {
+        try {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            alert('You must be logged in to delete a recipe');
+            return;
+          }
+    
+          console.log('Deleting recipe with ID:', recipeId);
+          console.log('Authorization Token:', token);
+    
+          await axios.delete(`http://localhost:5000/recipes/${recipeId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
             }
+          });
+    
+          alert("Recipe deleted successfully");
+          navigate('/'); 
+        } catch (error) {
+          console.error("Failed to delete recipe:", error);
+          alert("Failed to delete recipe");
         }
+      }
     };
+
+    const handleFavorite = () => {
+      if (user && user.favorites && user.favorites.includes(recipeId)) {
+        removeFavorite(recipeId);
+      } else {
+        addFavorite(recipeId);
+      }
+    };
+    
 
     if (loading) return <p>Loading...</p>;
     if (!recipe) return <p>No recipe found</p>;
 
+    const isOwner = user && recipe.user === user._id;
+    const isFavorite = user && user.favorites && user.favorites.includes(recipeId);
+    console.log(recipe)
+    console.log("fav", isFavorite)
+    console.log(user)
+
     return (
       <div className="flex justify-center">
-        <div className="hidden xl:block xl:w-1/5"></div> {/* Left empty space */}
-        <div className="w-full xl:w-3/5 p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-          <div className='mt-16 lg:col-span-1'>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl capitalize font-fancy text-blue-300 tracking-widest text-left mb-4">{recipe.title}</h1>
-            <button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-              Delete Recipe
-            </button>
-            <Link to={`/edit-recipe/${recipeId}`} className="text-blue-500 ml-4">Edit</Link>
+        <div className="hidden 2xl:block 2xl:w-1/5"></div> {/* Left empty space */}
+        <div className="w-full 2xl:w-3/5 p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+          <div className='lg:mt-16 mt-4 lg:col-span-1'>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl capitalize font-fancy text-blue-300 tracking-widest text-left mb-8">{recipe.title}</h1>
+            { isOwner && (
+            <>
+              <button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Delete Recipe
+              </button>
+              <Link to={`/edit-recipe/${recipeId}`} className="text-blue-500 ml-4">Edit</Link>
+            </>
+          )}
+          <button onClick={handleFavorite} className={`bg-${isFavorite ? 'red' : 'green'}-500 hover:bg-${isFavorite ? 'red' : 'green'}-700 text-red font-bold py-2 px-4 rounded mt-4`}>
+            {isFavorite ? 'Unfavorite' : 'Favorite'}
+          </button>
             <div className='p-4'>
               <h2 className="text-xl font-semibold mb-2 tracking-widest mt-16 uppercase">Ingredients</h2>
               <hr className='mb-6'/>
@@ -114,7 +152,7 @@ function RecipeDetail() {
             </div>
           </div>
         </div>
-        <div className="hidden xl:block xl:w-1/5"></div> {/* Right empty space */}
+        <div className="hidden 2xl:block 2xl:w-1/5"></div> {/* Right empty space */}
       </div>
     );
 }
